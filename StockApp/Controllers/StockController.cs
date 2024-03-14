@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StockApp.Interfaces;
-
+using StockApp.CustomException;
 namespace StockApp.Controllers
 {
     [Route("api/stocks")]
@@ -30,10 +30,13 @@ namespace StockApp.Controllers
         [HttpGet("byname")]
         public IActionResult getStockbyName([FromQuery]string name)
         {
-            var stocks= _stockRepo.GetStockByStockname(name);
-            if(stocks == null)
-                return NotFound();
+            String[] names= name.Split(',');
+            var stocks= _stockRepo.GetStockByStockname(names);
+           // Console.WriteLine(stocks);
+            if (stocks == null)
+               return NotFound(name);
             return Ok(stocks);
         }
+
     }
 }

@@ -30,13 +30,19 @@ namespace StockApp.Repository
             }
         }
 
-       public IEnumerable<Stock> GetStockByStockname(string name)
+       public IEnumerable<Stock> GetStockByStockname(string[] names)
         {
-            var query = "select * from stock where stockName like @Name ";
+            var query = "select * from stock where ";
+            for(int i = 0;i<names.Length;i++)
+            {
+                if(i>0)
+                    query += " or ";
+                query += $"stockName= '{names[i]}'";
+            }
             using(var connection = _context.createConnection())
             {
-                var Name = name +"%";
-                var stocks= connection.Query<Stock>(query, new { Name });
+                Console.WriteLine(query);
+                var stocks= connection.Query<Stock>(query);
                 return stocks.ToList();
             }
         }

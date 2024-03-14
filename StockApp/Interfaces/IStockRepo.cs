@@ -5,6 +5,6 @@ namespace StockApp.Interfaces
     {
         public IEnumerable<Stock> GetStocks();
         public Stock GetStockById(int id);
-        public IEnumerable<Stock> GetStockByStockname(string name);
+        public IEnumerable<Stock> GetStockByStockname(string[] names);
     }
 }

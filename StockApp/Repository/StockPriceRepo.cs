@@ -3,8 +3,6 @@ using StockApp.Context;
 using StockApp.Entities;
 using StockApp.Interfaces;
 
-
-
 namespace StockApp.Repository
 {
     public class StockPriceRepo : IStockPriceRepo
@@ -26,6 +24,21 @@ namespace StockApp.Repository
                     return stockPrice;
                 },splitOn:"stockid");
                 return stockprices;
+            }
+        }
+
+        IEnumerable<StockPrice> IStockPriceRepo.GetStockPriceByDate(int id, DateTime date)
+        {
+            var query = @"select * from [stockprice] sp join [stock] s on sp.stockid=s.stockid where sp.stockid=@id and convert(date,sp.createdAT)=@date";
+            using(var conn= _context.createConnection())
+            {
+                var stockprices = conn.Query<StockPrice, Stock, StockPrice>(query,
+                    (stockprice, stock) =>
+                    {
+                        stockprice.Stock = stock;
+                        return stockprice;
+                    }, new { id ,date}, splitOn: "stockid");
+                     return stockprices;
             }
         }
     }
