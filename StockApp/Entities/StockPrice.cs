@@ -2,10 +2,11 @@
 {
     public class StockPrice
     {
-        private int Stockpriceid {  get; set; }
-        private decimal? Price {  get; set; }
-        private DateTime? CreatedAT {  get; set; }
-        private DateTime? UpdatedAT { get; set;}
-        private int? Stockid { get; set; }
+        public int Stockpriceid {  get; set; }
+        public decimal? Price {  get; set; }
+        public DateTime? CreatedAT {  get; set; }
+        public DateTime? UpdatedAT { get; set;}
+        public int? Stockid { get; set; }
+        public Stock Stock { get; set; }
     }
 }

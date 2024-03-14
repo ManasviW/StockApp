@@ -12,6 +12,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<StockDbContext>();
 builder.Services.AddScoped<IStockRepo, StockRepo>();
+builder.Services.AddScoped<IStockPriceRepo, StockPriceRepo>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

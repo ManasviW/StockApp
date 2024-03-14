@@ -21,5 +21,24 @@ namespace StockApp.Repository
                 }
             
         }
+        public Stock GetStockById(int id) {
+            var query = "select * from Stock where stockid= @Id";
+            using(var connection = _context.createConnection())
+            {
+                var stock = connection.QuerySingle<Stock>(query, new {id});
+                return stock;
+            }
+        }
+
+       public IEnumerable<Stock> GetStockByStockname(string name)
+        {
+            var query = "select * from stock where stockName like @Name ";
+            using(var connection = _context.createConnection())
+            {
+                var Name = name +"%";
+                var stocks= connection.Query<Stock>(query, new { Name });
+                return stocks.ToList();
+            }
+        }
     }
 }
