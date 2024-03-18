@@ -6,7 +6,7 @@
         public string stockName { get; set; }
         public DateTime createdAt { get; set; }
         public DateTime updatedAt { get; set; }
-        public List<StockPrice> stockPrice { get; set; }
+        public List<StockPrice> stockPrice { get; set; }= new List<StockPrice>();
 
     }
 }

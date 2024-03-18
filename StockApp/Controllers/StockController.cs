@@ -22,20 +22,34 @@ namespace StockApp.Controllers
         [HttpGet("{id}",Name ="StockbyId")]
         public IActionResult GetStock(int id)
         {
-            var stock= _stockRepo.GetStockById(id);
-            if (stock == null)
-                return NotFound();
-            return Ok(stock);
+            try
+            {
+                var stock = _stockRepo.GetStockById(id);
+                if (stock == null)
+                    throw new NotFoundException();
+                return Ok(stock);
+            }
+            catch (NotFoundException ex)
+            {
+                Console.WriteLine($"An error occurred: {ex.Message}");
+                return StatusCode(200, "Element not Found");
+            }
         }
         [HttpGet("byname")]
-        public IActionResult getStockbyName([FromQuery]string name)
+        public IActionResult getStockbyName([FromQuery] string name)
         {
-            String[] names= name.Split(',');
-            var stocks= _stockRepo.GetStockByStockname(names);
-           // Console.WriteLine(stocks);
-            if (stocks == null)
-               return NotFound(name);
-            return Ok(stocks);
+            try
+            {
+                String[] names = name.Split(',');
+                var stocks = _stockRepo.GetStockByStockname(names);
+                return Ok(stocks);
+            }
+            catch (NotFoundException ex)
+            {
+                // Log the exception or handle it as needed
+                Console.WriteLine($"An error occurred: {ex.Message}");
+                return StatusCode(200, "Element not Found");
+            }
         }
 
     }

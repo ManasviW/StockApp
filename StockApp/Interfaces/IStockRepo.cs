@@ -1,4 +1,5 @@
-﻿using StockApp.Entities;
+﻿using StockApp.DTOs;
+using StockApp.Entities;
 namespace StockApp.Interfaces
 {
     public interface IStockRepo
